@@ -5,6 +5,7 @@ package hello;
 option go_package = ".;main";
 option java_package = "io.amsokol.grpc.benchmarking";
 option java_multiple_files = true;
+option csharp_namespace = "GrpcGreeter";
 
 message HelloRequest {
   // Request message contains the name to be greeted

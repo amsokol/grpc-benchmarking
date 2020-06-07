@@ -46,3 +46,15 @@ bench-java:
 		--concurrency=100 \
 		--data='{"name":"some_string"}' \
 		0.0.0.0:50053
+
+server-dotnet: 
+	cd ./dotnet && dotnet run --configuration Release
+
+bench-dotnet:
+	ghz --insecure \
+		--proto ./proto/hello.proto \
+		--call hello.Greeter.SayHello \
+		--total=1000000 \
+		--concurrency=100 \
+		--data='{"name":"some_string"}' \
+		0.0.0.0:50054
