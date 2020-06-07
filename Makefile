@@ -34,3 +34,15 @@ bench-go:
 		--concurrency=100 \
 		--data='{"name":"some_string"}' \
 		0.0.0.0:50052
+
+server-java: 
+	cd ./java && ./gradlew run
+
+bench-java:
+	ghz --insecure \
+		--proto ./proto/hello.proto \
+		--call hello.Greeter.SayHello \
+		--total=1000000 \
+		--concurrency=100 \
+		--data='{"name":"some_string"}' \
+		0.0.0.0:50053
