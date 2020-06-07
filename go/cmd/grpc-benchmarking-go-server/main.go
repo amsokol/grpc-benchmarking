@@ -21,7 +21,7 @@ func (g *greeter) SayHello(ctx context.Context, req *HelloRequest) (*HelloReply,
 	var seededRand *rand.Rand = rand.New(
 		rand.NewSource(time.Now().UnixNano()))
 
-	cap := seededRand.Intn(901) + 100
+	cap := seededRand.Intn(801) + 200
 
 	b := make([]byte, cap)
 	for i := range b {
