@@ -15,7 +15,7 @@ bench-rust:
 		--total=1000000 \
 		--concurrency=100 \
 		--data='{"name":"some_string"}' \
-		0.0.0.0:50051
+		localhost:50051
 
 server-go: build-go start-go
 
@@ -33,7 +33,7 @@ bench-go:
 		--total=1000000 \
 		--concurrency=100 \
 		--data='{"name":"some_string"}' \
-		0.0.0.0:50052
+		localhost:50052
 
 server-java: 
 	cd ./java && ./gradlew run
@@ -45,7 +45,7 @@ bench-java:
 		--total=1000000 \
 		--concurrency=100 \
 		--data='{"name":"some_string"}' \
-		0.0.0.0:50053
+		localhost:50053
 
 server-dotnet: 
 	cd ./dotnet && dotnet run --configuration Release
@@ -57,7 +57,7 @@ bench-dotnet:
 		--total=1000000 \
 		--concurrency=100 \
 		--data='{"name":"some_string"}' \
-		0.0.0.0:50054
+		localhost:50054
 
 server-node: build-node start-node
 
@@ -85,4 +85,4 @@ bench-node:
 		--total=1000000 \
 		--concurrency=100 \
 		--data='{"name":"some_string"}' \
-		0.0.0.0:50055
+		localhost:50055
