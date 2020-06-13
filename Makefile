@@ -9,7 +9,7 @@ start-rust:
 	./rust/target/release/grpc-benchmarking-rust-server
 
 bench-rust:
-	GOMAXPROCS=2 ghz --insecure \
+	GOMAXPROCS=4 ghz --insecure \
 		--proto ./proto/hello.proto \
 		--call hello.Greeter.SayHello \
 		--total=1000000 \
@@ -24,10 +24,10 @@ build-go:
 	cd ./go && go build ./cmd/grpc-benchmarking-go-server
 
 start-go:
-	./go/grpc-benchmarking-go-server
+	GOMAXPROCS=6 ./go/grpc-benchmarking-go-server
 
 bench-go:
-	GOMAXPROCS=2 ghz --insecure \
+	GOMAXPROCS=4 ghz --insecure \
 		--proto ./proto/hello.proto \
 		--call hello.Greeter.SayHello \
 		--total=1000000 \
@@ -39,7 +39,7 @@ server-java:
 	cd ./java && ./gradlew run
 
 bench-java:
-	GOMAXPROCS=2 ghz --insecure \
+	GOMAXPROCS=4 ghz --insecure \
 		--proto ./proto/hello.proto \
 		--call hello.Greeter.SayHello \
 		--total=1000000 \
@@ -51,7 +51,7 @@ server-dotnet:
 	cd ./dotnet && dotnet run --configuration Release
 
 bench-dotnet:
-	GOMAXPROCS=2 ghz --insecure \
+	GOMAXPROCS=4 ghz --insecure \
 		--proto ./proto/hello.proto \
 		--call hello.Greeter.SayHello \
 		--total=1000000 \
@@ -79,7 +79,7 @@ start-node:
 	cd ./node && node ./dist/server.js
 
 bench-node:
-	GOMAXPROCS=2 ghz --insecure \
+	GOMAXPROCS=4 ghz --insecure \
 		--proto ./proto/hello.proto \
 		--call hello.Greeter.SayHello \
 		--total=1000000 \
