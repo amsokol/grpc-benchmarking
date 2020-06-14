@@ -13,7 +13,7 @@ path = "src/main.rs"
 [dependencies]
 tonic = "0.2"
 prost = "0.6"
-tokio = { version = "0.2", features = ["macros"] }
+tokio = { version = "0.2", features = ["macros", "rt-core"] }
 rand = "0.7"
 
 [build-dependencies]

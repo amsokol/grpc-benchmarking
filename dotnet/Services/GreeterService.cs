@@ -9,6 +9,7 @@ namespace GrpcGreeter
 {
     public class GreeterService : Greeter.GreeterBase
     {
+        private readonly Random _random = new Random();
 
         private readonly ILogger<GreeterService> _logger;
         public GreeterService(ILogger<GreeterService> logger)
@@ -20,12 +21,11 @@ namespace GrpcGreeter
 
         public override Task<HelloReply> SayHello(HelloRequest request, ServerCallContext context)
         {
-            Random random = new Random();
-            var len = random.Next(200, 1001);
+            var len = _random.Next(200, 1001);
             var s = new char[len];
             for (int i = 0; i < len; i++)
             {
-                s[i] = charSet[random.Next(charSet.Length)];
+                s[i] = charSet[_random.Next(charSet.Length)];
             }
 
             return Task.FromResult(new HelloReply

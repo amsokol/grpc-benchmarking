@@ -5,7 +5,7 @@ import greeterHandler from './greeter'
 
 protoIndex()
 
-const port: string | number = process.env.PORT || 50055
+const port: string | number = process.env.PORT || 50051
 
 type StartServerType = () => void
 export const startServer: StartServerType = (): void => {

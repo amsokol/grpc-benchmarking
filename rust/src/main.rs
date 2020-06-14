@@ -37,6 +37,15 @@ impl Greeter for GreeterService {
                 .collect();
         });
 
+        /*
+        let mut rng = rand::thread_rng();
+
+        let msg = rng
+            .sample_iter(&Alphanumeric)
+            .take(rng.gen_range(200, 1001))
+            .collect();
+        */
+
         Ok(Response::new(hello::HelloReply { message: msg }))
 
         /*

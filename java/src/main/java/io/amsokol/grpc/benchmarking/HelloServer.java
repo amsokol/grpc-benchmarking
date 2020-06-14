@@ -21,7 +21,7 @@ public class HelloServer {
 
     private void start() throws IOException {
         /* The port on which the server should run */
-        int port = 50053;
+        int port = 50051;
         server = ServerBuilder.forPort(port).addService(new GreeterImpl()).build().start();
         logger.info("Server started, listening on " + port);
         Runtime.getRuntime().addShutdownHook(new Thread() {
@@ -78,11 +78,6 @@ public class HelloServer {
             for (int i = 0; i < len; i++) {
                 s[i] = AB.charAt(rnd.nextInt(AB.length()));
             }
-
-            // StringBuilder sb = new StringBuilder(len);
-            // for (int i = 0; i < len; i++) {
-            // sb.append(AB.charAt(rnd.nextInt(AB.length())));
-            // }
 
             // HelloReply reply = HelloReply.newBuilder().setMessage(sb.toString()).build();
             HelloReply reply = HelloReply.newBuilder().setMessage(new String(s)).build();
