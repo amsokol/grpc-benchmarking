@@ -1,4 +1,7 @@
+use rand::distributions::Alphanumeric;
+use rand::rngs::ThreadRng;
 use rand::Rng;
+use std::cell::RefCell;
 use tonic::{transport::Server, Request, Response, Status};
 
 use hello::greeter_server::{Greeter, GreeterServer};
@@ -8,8 +11,9 @@ pub mod hello {
     tonic::include_proto!("hello"); // The string specified here must match the proto package name
 }
 
-const CHARSET: &[u8] = b"abcdefghijklmnopqrstuvwxyz\
-                        ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+thread_local! {
+    pub static RAND: RefCell<ThreadRng> = RefCell::new(rand::thread_rng());
+}
 
 #[derive(Debug, Default)]
 pub struct GreeterService {}
@@ -18,29 +22,29 @@ pub struct GreeterService {}
 impl Greeter for GreeterService {
     async fn say_hello(
         &self,
-        request: Request<HelloRequest>, // Accept request of type HelloRequest
+        _request: Request<HelloRequest>, // Accept request of type HelloRequest
     ) -> Result<Response<HelloReply>, Status> {
         // Return an instance of type HelloReply
 
-        let mut rng = rand::thread_rng();
-        let cap = rng.gen_range(200, 1001);
+        let mut msg = String::new();
 
-        let mut b = Vec::with_capacity(cap);
-        unsafe {
-            b.set_len(cap);
-        }
+        RAND.with(|f| {
+            let mut rng = *f.borrow_mut();
 
-        for c in b.iter_mut() {
-            *c = CHARSET[rng.gen_range(0, CHARSET.len())];
-            // s.push(rand::random::<u8>() as char);
-        }
+            msg = rng
+                .sample_iter(&Alphanumeric)
+                .take(rng.gen_range(200, 1001))
+                .collect();
+        });
 
+        Ok(Response::new(hello::HelloReply { message: msg }))
+
+        /*
         let reply = hello::HelloReply {
-            // message: format!("Hello {}!", request.into_inner().name), // We must use .into_inner() as the fields of gRPC requests and responses are private
-            message: String::from_utf8(b).unwrap(),
+            message: format!("Hello {}!", request.into_inner().name), // We must use .into_inner() as the fields of gRPC requests and responses are private
         };
-
         Ok(Response::new(reply)) // Send back our formatted greeting
+        */
     }
 }
 
