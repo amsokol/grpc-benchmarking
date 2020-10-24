@@ -24,7 +24,10 @@ bench-rust: bench
 server-go: build-go start-go
 
 build-go:
-	protoc --proto_path=./proto --go_out=plugins=grpc:./go/cmd/grpc-benchmarking-go-server hello.proto
+	protoc \
+	    --go_out=./go/cmd/grpc-benchmarking-go-server \
+	    --go-grpc_out=./go/cmd/grpc-benchmarking-go-server \
+	    proto/hello.proto
 	cd ./go && go build ./cmd/grpc-benchmarking-go-server
 
 start-go:

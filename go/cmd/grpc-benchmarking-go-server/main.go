@@ -20,6 +20,9 @@ const charset = "abcdefghijklmnopqrstuvwxyz" +
 var _rand = rand.New(rand.NewSource(time.Now().UnixNano()))
 var _muxRand sync.Mutex
 
+func (g *greeter) mustEmbedUnimplementedGreeterServer() {
+}
+
 // SayHello rpc accepts HelloRequests and returns HelloReplies.
 func (g *greeter) SayHello(ctx context.Context, req *HelloRequest) (*HelloReply, error) {
 	_muxRand.Lock()
